@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                 text = "http://$text"
 
             if (!text.isValidLink()) {
-                binding.tilLink.error = "Invalid URL"
+                binding.tilLink.error = getString(R.string.invalid_url)
                 return@setEndIconOnClickListener
             }
 
@@ -43,25 +43,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadLinkPreview(link: String) {
-        binding.tilLink.isEndIconVisible = false
-        binding.progress.setVisibility(true)
+        showProgress(true)
         val openGraphParser = OpenGraphParser(object : OpenGraphCallback {
             override fun onError(error: String) {
-                binding.tilLink.isEndIconVisible = true
-                binding.progress.setVisibility(false)
+                showProgress(false)
             }
 
             override fun onPostResponse(openGraphResult: OpenGraphResult) {
-                binding.tilLink.isEndIconVisible = true
-                binding.tvNoData.setVisibility(false)
-                binding.progress.setVisibility(false)
-                binding.etLink.text = null
-                linksList.add(openGraphResult)
-                adapter.setLinksList(linksList)
-                binding.rvLinkPreview.scrollToPosition(adapter.itemCount - 1)
+                addLinkPreviewToList(openGraphResult)
             }
         }, showNullOnEmpty = true, context = this)
         openGraphParser.parse(link)
+    }
+
+    private fun addLinkPreviewToList(openGraphResult: OpenGraphResult) {
+        binding.tvNoData.setVisibility(false)
+        showProgress(false)
+        binding.etLink.text = null
+
+        linksList.add(openGraphResult)
+        adapter.setLinksList(linksList)
+        binding.rvLinkPreview.scrollToPosition(adapter.itemCount - 1)
+    }
+
+    private fun showProgress(toShow: Boolean) {
+        binding.tilLink.isEndIconVisible = !toShow
+        binding.progress.setVisibility(toShow)
     }
 
     private fun String?.isValidLink(): Boolean {

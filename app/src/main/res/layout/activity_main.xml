@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center"
-            android:text="No Data"
+            android:text="@string/no_data"
             app:layout_constraintBottom_toTopOf="@+id/til_link"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="Enter URL"
+            android:hint="@string/enter_url"
             app:endIconContentDescription="Send"
             app:endIconDrawable="@drawable/ic_baseline_send_24"
             app:endIconMode="custom"
