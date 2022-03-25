@@ -4,22 +4,21 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kedia.ogparser.OpenGraphResult
-import com.rajangarg.linkpreviewdemo.databinding.ItemLinkPreviewBinding
+import com.rajangarg.linkpreviewdemo.databinding.LayoutLinkPreviewLargeBinding
 
 
 class LinksListAdapter : RecyclerView.Adapter<LinksListAdapter.MainViewHolder>() {
 
-    private var linksList = ArrayList<OpenGraphResult>()
+    var linksList = ArrayList<OpenGraphResult>()
 
-    fun setLinksList(linksList: ArrayList<OpenGraphResult>) {
-        this.linksList.clear()
-        this.linksList.addAll(linksList)
-        notifyDataSetChanged()
+    fun addLink(link: OpenGraphResult) {
+        linksList.add(link)
+        notifyItemInserted(linksList.lastIndex)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemLinkPreviewBinding.inflate(inflater, parent, false)
+        val binding = LayoutLinkPreviewLargeBinding.inflate(inflater, parent, false)
         return MainViewHolder(binding)
     }
 
@@ -32,7 +31,7 @@ class LinksListAdapter : RecyclerView.Adapter<LinksListAdapter.MainViewHolder>()
         return linksList.size
     }
 
-    inner class MainViewHolder(private val binding: ItemLinkPreviewBinding) :
+    inner class MainViewHolder(private val binding: LayoutLinkPreviewLargeBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(openGraphResult: OpenGraphResult) {
             binding.openGraphResult = openGraphResult

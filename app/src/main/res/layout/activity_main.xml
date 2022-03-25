@@ -35,7 +35,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:itemCount="10"
-            tools:listitem="@layout/item_link_preview" />
+            tools:listitem="@layout/layout_link_preview_large" />
+
+        <include
+            android:id="@+id/layout_link_preview_small"
+            layout="@layout/layout_link_preview_small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/til_link" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_link"
